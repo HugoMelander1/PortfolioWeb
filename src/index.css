@@ -1,0 +1,910 @@
+/* ============================================================
+   Färger och mått – ändra här så slår det igenom överallt.
+   Kontrast (mot --bg): --text 15:1, --muted 7.6:1, --accent 13:1
+   ============================================================ */
+:root {
+  --bg: #0f1115;
+  --surface: #161920;
+  --surface-hover: #1c2029;
+  --border: #272c37;
+  --text: #e7e9ee;
+  --muted: #a0a8b8;
+  --accent: #5eead4;
+  --accent-soft: rgba(94, 234, 212, 0.12);
+  --on-accent: #0b1f1c;
+
+  --radius: 14px;
+  --max-width: 1080px;
+  --header-height: 4rem;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Grund ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(94, 234, 212, 0.07), transparent 70%),
+    var(--bg);
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--accent);
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Tydlig fokusmarkering för tangentbord */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Rubriker får fokus vid sidbyte men är inte klickbara – ingen ram behövs */
+h1:focus {
+  outline: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lead {
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 1.125rem;
+}
+
+.section {
+  margin-top: 3.5rem;
+}
+
+.section-title {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notice {
+  padding: 1rem 1.25rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+/* ---------- Knappar ---------- */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.2s var(--ease),
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.button-secondary {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.button-secondary:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ---------- Header och meny ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: rgba(15, 17, 21, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.nav ul {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--text);
+}
+
+/* Accentlinjen under aktiv länk växer fram från mitten */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease);
+}
+
+.nav-link.is-active::after {
+  transform: scaleX(1);
+}
+
+.menu-button {
+  display: none;
+}
+
+/* ---------- Mobilmeny ---------- */
+@media (max-width: 640px) {
+  .menu-button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /* Tre streck som blir ett kryss när menyn är öppen */
+  .menu-icon,
+  .menu-icon::before,
+  .menu-icon::after {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text);
+    transition: transform 0.25s var(--ease), background-color 0.25s;
+  }
+
+  .menu-icon {
+    position: relative;
+  }
+
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .menu-icon::before {
+    top: -6px;
+  }
+
+  .menu-icon::after {
+    top: 6px;
+  }
+
+  .menu-button[aria-expanded='true'] .menu-icon {
+    background: transparent;
+  }
+
+  .menu-button[aria-expanded='true'] .menu-icon::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .menu-button[aria-expanded='true'] .menu-icon::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .nav.is-open {
+    display: block;
+    animation: slide-down 0.25s var(--ease);
+  }
+
+  .nav ul {
+    flex-direction: column;
+  }
+
+  .nav-link {
+    padding: 0.75rem 0;
+  }
+
+  .nav-link::after {
+    left: 0;
+    right: auto;
+    width: 1.5rem;
+  }
+}
+
+/* ---------- Sidinnehåll ---------- */
+.page {
+  flex: 1;
+  padding: 3.5rem 0 5rem;
+  animation: page-in 0.5s var(--ease);
+}
+
+.page-header {
+  margin-bottom: 2.5rem;
+}
+
+/* ---------- Start ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  min-height: 50vh;
+}
+
+.signal {
+  width: 100%;
+  max-width: 320px;
+  justify-self: center;
+}
+
+.signal-line {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 2;
+}
+
+/* En kort ljus bit som "åker" längs linjerna */
+.signal-pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 24 400;
+  animation: pulse-travel 3.2s linear infinite;
+}
+
+.signal-pulse-late {
+  animation-delay: 1.6s;
+}
+
+.signal-node {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.signal-node-main {
+  fill: var(--accent-soft);
+  animation: node-glow 3.2s ease-in-out infinite;
+}
+
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.path-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.path-card:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+}
+
+.path-title {
+  font-weight: 600;
+}
+
+.path-title span {
+  display: inline-block;
+  color: var(--accent);
+  transition: transform 0.2s var(--ease);
+}
+
+.path-card:hover .path-title span {
+  transform: translateX(4px);
+}
+
+.path-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Projekt ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition:
+    border-color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.project-card-body p {
+  color: var(--muted);
+}
+
+.project-title {
+  margin-top: 0.75rem;
+}
+
+.card-link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Gör hela kortet klickbart utan att lägga allt innehåll inuti länken */
+.card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.card-link:focus-visible {
+  outline: none;
+}
+
+.project-card:has(.card-link:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.read-more {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-pending {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.badge-done {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.badge-placeholder {
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Enskild projektsida */
+.back-link {
+  display: inline-flex;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.project-page .page-header h1 {
+  margin-top: 0.75rem;
+}
+
+.project-hero-image {
+  width: 100%;
+  margin-bottom: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.project-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.detail-block {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.detail-block h2 {
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+.detail-block p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ---------- Om mig ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.about-grid .section {
+  margin-top: 0;
+}
+
+.timeline {
+  border-left: 2px solid var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 1.5rem 1.5rem;
+}
+
+/* Punkt på tidslinjen */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 0.35rem;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.timeline-item h3 {
+  margin-bottom: 0.15rem;
+}
+
+.timeline-period {
+  margin-bottom: 0.25rem;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.timeline-org {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.timeline-location {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.timeline-text {
+  color: var(--muted);
+}
+
+.timeline-item .tag-list {
+  margin-top: 0.25rem;
+}
+
+.skill-groups {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+}
+
+.skill-group {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  align-items: start;
+  gap: 1rem;
+}
+
+.skill-group dt {
+  padding-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.skill-group dd {
+  margin: 0;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-weight: 500;
+}
+
+/* ---------- Kontakt ---------- */
+.contact-list {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 34rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.contact-card:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.contact-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.contact-value {
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 404 ---------- */
+.not-found {
+  padding-top: 2rem;
+}
+
+/* ---------- Sidfot ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+/* ---------- Animationer ---------- */
+.reveal {
+  animation: rise-in 0.5s var(--ease) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pulse-travel {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+@keyframes node-glow {
+  50% {
+    fill: rgba(94, 234, 212, 0.3);
+  }
+}
+
+/* Respektera användare som valt minskad rörelse i sitt system */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .signal-pulse {
+    display: none;
+  }
+}
+
+/* ---------- Responsivt ---------- */
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .signal {
+    display: none;
+  }
+
+  .path-grid,
+  .project-grid,
+  .project-details,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: 2.5rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .skill-group {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .skill-group dt {
+    padding-top: 0;
+  }
+}
